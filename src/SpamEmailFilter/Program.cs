@@ -9,7 +9,7 @@ namespace ConsoleApp2
         {
             try
             {
-                MLContext context = new MLContext();
+                MLContext context = new();
 
                 // Load the data
                 IDataView data = context.Data.LoadFromTextFile<SpamInput>("./email.csv", separatorChar: ',');
@@ -26,7 +26,7 @@ namespace ConsoleApp2
                 PredictionEngine<SpamInput, SpamPrediction> predictionEngine = context.Model.CreatePredictionEngine<SpamInput, SpamPrediction>(model);
 
                 // Test the model
-                SpamInput testEmail = new SpamInput { Message = "Free money" };
+                SpamInput testEmail = new() { Message = "How are you there?" };
                 SpamPrediction prediction = predictionEngine.Predict(testEmail);
 
                 Console.WriteLine($"The message '{testEmail.Message}' is {(prediction.Prediction ? "spam" : "not spam")}");
